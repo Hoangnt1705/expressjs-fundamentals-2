@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link type="text/babel" rel="stylesheet" href="./question-detail.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li class="logo"><a href="#">Hỏi.MịeĐê!</a></li>
+            <li><a href="/ask">Hỏi nhanh</a></li>
+            <li><a href="/">Đáp gọn</a></li>
+        </ul>
+    </nav>
+    <div class="main-content">
+        <div class="question-content">
+            Something
+        </div>
+        <div class="vote">
+            <span class="vote-number">6</span> vote
+        </div>
+        <div class="rate-bar">
+            <div class="dislike" id="dislike"></div>
+            <div class="like" id="like">60%</div>
+        </div>
+        <div class="btn">
+            <button id="btn">Xem câu hỏi khác</button>
+        </div>
+    </div>
+</body>
+<script>
+    let url = window.location.href.substring(38)
+    const API = `http://localhost:4000/api/v1/questions/${url}`;
+    fetch(API)
+        .then((response) => response.json())
+        .then((data) => {
+            let dataParse = JSON.parse(data);
+            const dislike = document.getElementById("dislike");
+            const like = document.getElementById("like");
+            const totalVotes = parseInt(dataParse.like) + parseInt(dataParse.dislike);
+            let likeStatistical = (dataParse.like / totalVotes) * 100;
+            let dislikeStatistical = (dataParse.dislike / totalVotes) * 100;
+            like.innerText = likeStatistical + `%`;
+            dislike.innerText = dislikeStatistical + `%`;
+            let btn = document.getElementById("btn");
+            btn.addEventListener("click", () => {
+                window.location.href = "http://localhost:4000/";
+            })
+        });
+</script>
+<!-- <script src="./question-detail.js"></script> -->
+
+</html>
