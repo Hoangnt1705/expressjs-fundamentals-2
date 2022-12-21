@@ -7,7 +7,7 @@ const pathURL = './questions.json'
 const path = require('path');
 const { response } = require("express");
 console.log(path.join);
-app.use(express.static('public'))
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -21,7 +21,7 @@ app.get('/ask', (req, res) => {
 });
 
 app.get('/question-detail/:id', (req, res) => {
-    res.sendFile(path.resolve('./public/question-detail.html'));
+    res.sendFile(path.join(__dirname, "./public/question-detail.html"));
 
 });
 
